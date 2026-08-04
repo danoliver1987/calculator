@@ -44,3 +44,13 @@ console.log(sumUp(100, 10, "-")); // 90
 console.log(sumUp(3, 10, "*")); // 30
 console.log(sumUp(24, 8, "/")); // 3
 console.log(sumUp(3, 10, "%")); // "ERROR"
+
+const numberButtons= document.querySelectorAll(".num-btn");
+
+numberButtons.forEach(function(button) {
+   
+    button.addEventListener("click", function(event) {
+        const btnListener = event.target.innerText;
+        console.log(btnListener);
+    });
+});
