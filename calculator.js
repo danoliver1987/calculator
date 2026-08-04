@@ -18,8 +18,8 @@ const divide = function(a, b) {
 }
 console.log(divide);
 
-let num1;
-let num2;
+let num1 = "";
+let num2 = "";
 let operator;
 
 const sumUp = function (a, b, operator) {
@@ -51,6 +51,10 @@ numberButtons.forEach(function(button) {
    
     button.addEventListener("click", function(event) {
         const btnListener = event.target.innerText;
-        console.log(btnListener);
+        const display = document.querySelector("input");
+        num1 = num1 + btnListener;
+        display.value = num1;
     });
 });
+
+
