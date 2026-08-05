@@ -75,6 +75,16 @@ operatorButtons.forEach(function(button2) {
     });
 });
 
+const sumButton = document.querySelector(".sumup");
+
+sumButton.addEventListener("click", function(event) {
+    const display = document.querySelector("input");
+    
+    const result = sumUp(num1, num2, operator); 
+    
+    display.value = result; 
+});
+
 
 
 
