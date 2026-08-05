@@ -1,22 +1,18 @@
 const add = function(a, b) {
     return a + b;
 }
-console.log(add);
 
 const subtract = function(a, b) {
     return a - b;
 }
-console.log(subtract);
 
 const multiply = function(a, b) {
     return a * b;
 }
-console.log(multiply);
 
 const divide = function(a, b) {
     return a / b;
 }
-console.log(divide);
 
 let num1 = "";
 let num2 = "";
@@ -39,39 +35,32 @@ const sumUp = function (a, b, operator) {
         return "ERROR";
     }
 }
-console.log(sumUp(5, 6, "+")); // 11
-console.log(sumUp(100, 10, "-")); // 90
-console.log(sumUp(3, 10, "*")); // 30
-console.log(sumUp(24, 8, "/")); // 3
-console.log(sumUp(3, 10, "%")); // "ERROR"
 
 const numberButtons = document.querySelectorAll(".num-btn");
 
 numberButtons.forEach(function(button) {
-   
     button.addEventListener("click", function(event) {
         const btnListener = event.target.innerText;
         const display = document.querySelector("input");
-       
-         if (operator === undefined) {
-        num1 = num1 + btnListener;
-        display.value = num1;
-    } else {
-        num2 = num2 + btnListener;
-        display.value = num2;
-    }
+
+        if (operator === undefined) {
+            num1 = num1 + btnListener;
+            display.value = num1;
+        } else {
+            num2 = num2 + btnListener;
+            display.value = num2;
+        }
     });
 });
 
 const operatorButtons = document.querySelectorAll(".opBtn");
 
 operatorButtons.forEach(function(button2) {
-
     button2.addEventListener("click", function(event) {
-       const btnListener = event.target.innerText;
-       const display = document.querySelector("input");
-       operator = btnListener;
-       display.value = operator;
+        const btnListener = event.target.innerText;
+        const display = document.querySelector("input");
+        operator = btnListener;
+        display.value = operator;
     });
 });
 
@@ -79,12 +68,6 @@ const sumButton = document.querySelector(".sumup");
 
 sumButton.addEventListener("click", function(event) {
     const display = document.querySelector("input");
-    
-    const result = sumUp(num1, num2, operator); 
-    
-    display.value = result; 
+    const result = sumUp(parseInt(num1), parseInt(num2), operator);
+    display.value = result;
 });
-
-
-
-
