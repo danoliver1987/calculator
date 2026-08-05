@@ -45,16 +45,36 @@ console.log(sumUp(3, 10, "*")); // 30
 console.log(sumUp(24, 8, "/")); // 3
 console.log(sumUp(3, 10, "%")); // "ERROR"
 
-const numberButtons= document.querySelectorAll(".num-btn");
+const numberButtons = document.querySelectorAll(".num-btn");
 
 numberButtons.forEach(function(button) {
    
     button.addEventListener("click", function(event) {
         const btnListener = event.target.innerText;
         const display = document.querySelector("input");
+       
+         if (operator === undefined) {
         num1 = num1 + btnListener;
         display.value = num1;
+    } else {
+        num2 = num2 + btnListener;
+        display.value = num2;
+    }
     });
 });
+
+const operatorButtons = document.querySelectorAll(".opBtn");
+
+operatorButtons.forEach(function(button2) {
+
+    button2.addEventListener("click", function(event) {
+       const btnListener = event.target.innerText;
+       const display = document.querySelector("input");
+       operator = btnListener;
+       display.value = operator;
+    });
+});
+
+
 
 
