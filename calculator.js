@@ -71,3 +71,13 @@ sumButton.addEventListener("click", function(event) {
     const result = sumUp(parseInt(num1), parseInt(num2), operator);
     display.value = result;
 });
+
+const clearBtn = document.querySelector(".clearBtn");
+
+clearBtn.addEventListener("click", function(event) {
+    const display = document.querySelector("input");
+    num1 = "";
+    num2 = "";
+    operator = undefined;
+    display.value = "";
+});
