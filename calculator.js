@@ -59,6 +59,12 @@ operatorButtons.forEach(function(button2) {
     button2.addEventListener("click", function(event) {
         const btnListener = event.target.innerText;
         const display = document.querySelector("input");
+
+        if (num2 !== "") {
+            num1 = sumUp(parseInt(num1), parseInt(num2), operator);
+             num2 = "";
+        };
+
         operator = btnListener;
         display.value = operator;
     });
