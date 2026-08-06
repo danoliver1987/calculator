@@ -75,7 +75,9 @@ const sumButton = document.querySelector(".sumup");
 sumButton.addEventListener("click", function(event) {
     const display = document.querySelector("input");
     const result = sumUp(parseInt(num1), parseInt(num2), operator);
-    display.value = result;
+    let n = result.toFixed(4);
+    n = parseFloat(n);
+    display.value = n;
 });
 
 const clearBtn = document.querySelector(".clearBtn");
