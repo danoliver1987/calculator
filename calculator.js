@@ -122,7 +122,7 @@ const decimalButton = document.querySelector(".decimalBtn");
 decimalButton.addEventListener("click", function(event) {
     const btnListener = event.target.innerText;
     const display = document.querySelector("input");
-    
+
     if (operator === undefined) {
           if (!num1.includes(".")) {
             num1 = num1 + btnListener;
@@ -132,4 +132,18 @@ decimalButton.addEventListener("click", function(event) {
            num2 = num2 + btnListener;
            display.value = num2;
         } 
-}});
+    }});
+
+const backspaceButton = document.querySelector(".backspaceBtn");
+
+backspaceButton.addEventListener("click", function(event) {
+    const display = document.querySelector("input");
+
+    if (operator === undefined) {
+        num1 = num1.slice(0, -1) 
+        display.value = num1;
+    }   else {
+        num2 = num2.slice(0, -1) 
+        display.value = num2;
+    } 
+});
