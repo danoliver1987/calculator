@@ -64,11 +64,17 @@ numberButtons.forEach(function(button) {
  
         // If a result was just displayed, treat this digit as the start of
         // a brand new calculation instead of appending to the old result.
+        // hasBeenCalculated is a global variable (declared near the top of
+        // the file as "let hasBeenCalculated = false;") that only becomes
+        // true inside the sumButton handler, right after a result is shown.
+        // Checking it here lets this completely separate function know
+        // "a calculation just finished" and react by wiping the slate clean.
         if (hasBeenCalculated === true) {
             num1 = "";
             num2 = "";
             operator = undefined;
-            hasBeenCalculated = false;
+            hasBeenCalculated = false; // reset the flag so this block only
+                                        // runs once, right after a result
          }
  
         // No operator chosen yet -> still building the first number.
@@ -89,16 +95,25 @@ const operatorButtons = document.querySelectorAll(".opBtn");
 operatorButtons.forEach(function(button2) {
     button2.addEventListener("click", function(event) {
         const btnListener = event.target.innerText; // the operator symbol clicked, e.g. "+"
-        const display = document.querySelector("input");
+        const display = document.querySelector("input"); // the calculator's screen
  
         // If num2 already has a value, a full pair (num1, operator, num2) is
         // waiting to be evaluated. This handles chained calculations like
         // 12 + 7 - 1, where pressing "-" should first resolve "12 + 7".
         if (num2 !== "") {
-            num1 = sumUp(parseInt(num1), parseInt(num2), operator);
+            // Calculate the pending result and store it back into num1.
+            // Why num1? Because whatever this result is becomes the FIRST
+            // number of the NEXT calculation. E.g. in 12 + 7 - 1: once "12 + 7"
+            // is resolved to 19, that 19 becomes the new num1, ready to be
+            // combined with whatever num2 comes next (here, "1").
+            // parseFloat (not parseInt) is used here so decimals survive -
+            // parseInt("2.5") would chop it down to just 2, losing the ".5".
+            num1 = sumUp(parseFloat(num1), parseFloat(num2), operator);
  
-            // If that calculation hit a divide-by-zero, show the message
-            // and stop here - don't let it flow into the next operator.
+            // If that calculation hit a divide-by-zero, num1 will now hold
+            // the error message string instead of a number. Show it and
+            // stop here (the "return" exits the whole click handler) so we
+            // don't try to overwrite it with the newly clicked operator below.
             if (num1 === "What a plonker!") {
                 return display.value = "What a plonker!";
         };
@@ -119,15 +134,17 @@ operatorButtons.forEach(function(button2) {
 const sumButton = document.querySelector(".sumup");
  
 sumButton.addEventListener("click", function(event) {
-    const display = document.querySelector("input");
+    const display = document.querySelector("input"); // the calculator's screen
  
     // Don't attempt a calculation unless num1, num2, AND operator are all filled in.
     if (num1 === "" || num2 === "" || operator === undefined) {
         return display.value = "Try again!";
     }
  
-    // parseInt converts the number-strings into actual numbers before maths happens.
-    const result = sumUp(parseInt(num1), parseInt(num2), operator);
+    // parseFloat converts the number-strings into actual numbers before maths happens.
+    // parseFloat is used instead of parseInt so decimal values (like "2.5")
+    // keep their decimal part instead of being truncated to whole numbers.
+    const result = sumUp(parseFloat(num1), parseFloat(num2), operator);
  
     // Catch the divide-by-zero case before trying to round it (strings don't have .toFixed()).
     if (result === "What a plonker!") {
@@ -145,7 +162,7 @@ sumButton.addEventListener("click", function(event) {
 const clearBtn = document.querySelector(".clearBtn");
  
 clearBtn.addEventListener("click", function(event) {
-    const display = document.querySelector("input");
+    const display = document.querySelector("input"); // the calculator's screen
     // Reset everything back to its starting state.
     num1 = "";
     num2 = "";
@@ -158,7 +175,7 @@ const decimalButton = document.querySelector(".decimalBtn");
  
 decimalButton.addEventListener("click", function(event) {
     const btnListener = event.target.innerText; // always "."
-    const display = document.querySelector("input");
+    const display = document.querySelector("input"); // the calculator's screen
  
     // Same "which number am I editing" check as the digit buttons.
     if (operator === undefined) {
@@ -178,7 +195,7 @@ decimalButton.addEventListener("click", function(event) {
 const backspaceButton = document.querySelector(".backspaceBtn");
  
 backspaceButton.addEventListener("click", function(event) {
-    const display = document.querySelector("input");
+    const display = document.querySelector("input"); // the calculator's screen
  
     // Same "which number am I editing" check again - remove the last
     // character from whichever number is currently being typed.
