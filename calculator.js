@@ -21,6 +21,7 @@ const divide = function(a, b) {
 let num1 = "";
 let num2 = "";
 let operator;
+let hasBeenCalculated = false;
 
 const sumUp = function (a, b, operator) {
     if (operator === "+") {
@@ -47,13 +48,20 @@ numberButtons.forEach(function(button) {
         const btnListener = event.target.innerText;
         const display = document.querySelector("input");
 
+        if (hasBeenCalculated === true) {
+            num1 = "";
+            num2 = "";
+            operator = undefined;
+            hasBeenCalculated = false;
+         }
+
         if (operator === undefined) {
             num1 = num1 + btnListener;
             display.value = num1;
         } else {
             num2 = num2 + btnListener;
             display.value = num2;
-        }
+        } 
     });
 });
 
@@ -71,7 +79,7 @@ operatorButtons.forEach(function(button2) {
         };
         
         num2 = "";
-        
+
         }
         
         operator = btnListener;
@@ -96,6 +104,7 @@ sumButton.addEventListener("click", function(event) {
         let n = result.toFixed(4);
         n = parseFloat(n);
         display.value = n;
+        hasBeenCalculated = true;
 });
 
 const clearBtn = document.querySelector(".clearBtn");
@@ -107,3 +116,20 @@ clearBtn.addEventListener("click", function(event) {
     operator = undefined;
     display.value = "";
 });
+
+const decimalButton = document.querySelector(".decimalBtn");
+
+decimalButton.addEventListener("click", function(event) {
+    const btnListener = event.target.innerText;
+    const display = document.querySelector("input");
+    
+    if (operator === undefined) {
+          if (!num1.includes(".")) {
+            num1 = num1 + btnListener;
+            display.value = num1;
+        }} else {
+          if (!num2.includes(".")) {
+           num2 = num2 + btnListener;
+           display.value = num2;
+        } 
+}});
