@@ -26,6 +26,8 @@ input {
     border-radius: 10px;
     border-color: black;
     border-width: 10px;
+    font-size: 70px;
+    text-align: center;
 }
 
 .line1 {
@@ -40,18 +42,21 @@ input {
 }
 
 .backspaceBtn {
-    width: 100px;
+    width: 150px;
+    background-color: gainsboro;
 }
 
 .clearBtn {
     background-color: rgb(243, 124, 80);
-    width: 70px;
+    width: 90px;
 }
 
 .opBtn {
-    width: 70px;
+    width: 90px;
+    background-color: gainsboro;
 }
 
 .num-btn {
-    width: 70px;
+    width: 80px;
+    background-color: gainsboro;
 }

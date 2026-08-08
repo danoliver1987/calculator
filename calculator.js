@@ -80,12 +80,19 @@ numberButtons.forEach(function(button) {
         // No operator chosen yet -> still building the first number.
         // Operator already chosen -> now building the second number.
         if (operator === undefined) {
-            num1 = num1 + btnListener;
-            display.value = num1;
+            // .length checks how many characters num1 already has. Once it
+            // reaches 8, this is false, so further digit clicks are simply
+            // ignored - this stops the number overflowing the display.
+            if (num1.length < 8) {
+                num1 = num1 + btnListener;
+                display.value = num1;
+            }
         } else {
-            num2 = num2 + btnListener;
-            display.value = num2;
-        } 
+            if (num2.length < 8) {
+                num2 = num2 + btnListener;
+                display.value = num2;
+            }
+        }
     });
 });
  
