@@ -1,62 +1,98 @@
 body {
     background-color: rgb(199, 189, 196);
-    margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0;
 }
 
 .main-container {
-    width: 350px;
-    height: 500px;
-    padding: 20px;
+    width: 480px;
+    height: 600px;
     background-color: rgba(86, 83, 83, 0.859);
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
+    /* Note: align-items: center was removed earlier - by default (without
+       this line) flex items stretch to fill the cross-axis (here, width),
+       which is what lets .line1 and the button rows fill the full container
+       width evenly instead of shrinking to their content and centering. */
     border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box; /* padding is now included in the 480x600 size,
+                                instead of adding on top of it */
+    gap: 10px; /* even spacing between rows, replacing old margin: 10px
+                  that was previously set individually on some rows */
 }
 
 input {
-    background-color: rgb(103, 174, 148);
-    width: 320px;
-    height: 100px;
+    background-color: rgb(175, 220, 203);
+    /* Changed from a fixed "320px" to "100%": a fixed width doesn't adapt
+       to .line1's actual size, so when .line1 was slightly wider than
+       320px, the leftover space collected on one side only (the gap you
+       spotted). 100% makes the input always match its container's width. */
+    width: 100%;
+    /* Changed from a fixed "130px" to "100%" for the same reason - this
+       lets the input fill .line1's height exactly, whatever that turns
+       out to be, instead of a guessed fixed number. */
+    height: 100%;
     border-radius: 10px;
-    border-color: black;
-    border-width: 10px;
     font-size: 60px;
     text-align: center;
+    box-sizing: border-box; /* the 10px border below is now included in
+                                the input's width/height, rather than
+                                pushing the element bigger than its box */
+    /* Replaced separate border-color/border-width lines with this single
+       shorthand, and crucially ADDED "solid" (border-style). Without a
+       style, browsers fall back to their own default input border look
+       (often an uneven "inset" style), which was the real cause of the
+       lopsided border you saw before this fix. */
+    border: 10px solid black;
 }
 
 .line1 {
     display: flex;
+    width: 100%;
+    flex: 2; /* the display row takes twice the vertical space of a
+                single button row, since flex-direction on the parent
+                is "column" so flex controls height here */
 }
 
-.line2 {
+.line2, .line3, .line4, .line5, .line6 {
     display: flex;
-    height: 50px;
-    width: 350px;
+    width: 100%;
+    flex: 1; /* each button row shares the remaining height equally */
     justify-content: space-between;
+    gap: 10px; /* even horizontal spacing between buttons in a row */
+}
+
+button {
+    flex: 1; /* every button grows to fill its equal share of the row's width */
+    font-weight: bold;
+    font-size: 30px;
 }
 
 .backspaceBtn {
-    width: 150px;
     background-color: gainsboro;
 }
 
 .clearBtn {
     background-color: rgb(243, 124, 80);
-    width: 90px;
 }
 
 .opBtn {
-    width: 90px;
-    background-color: gainsboro;
+    background-color: greenyellow;
 }
 
 .num-btn {
-    width: 80px;
+    background-color: gainsboro;
+}
+
+.sumup {
+    flex: 2; /* wider than a normal button, e.g. twice the width of "0" */
+    background-color: rgb(238, 238, 149);
+}
+
+.decimalBtn {
     background-color: gainsboro;
 }
