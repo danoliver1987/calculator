@@ -29,7 +29,7 @@ input {
     background-color: rgb(175, 220, 203);
     /* Changed from a fixed "320px" to "100%": a fixed width doesn't adapt
        to .line1's actual size, so when .line1 was slightly wider than
-       320px, the leftover space collected on one side only (the gap you
+       320px, the leftover space collected on one side only (the gap
        spotted). 100% makes the input always match its container's width. */
     width: 100%;
     /* Changed from a fixed "130px" to "100%" for the same reason - this
@@ -38,6 +38,7 @@ input {
     height: 100%;
     border-radius: 10px;
     font-size: 60px;
+    font-weight: bolder;
     text-align: center;
     box-sizing: border-box; /* the 10px border below is now included in
                                 the input's width/height, rather than
@@ -46,7 +47,7 @@ input {
        shorthand, and crucially ADDED "solid" (border-style). Without a
        style, browsers fall back to their own default input border look
        (often an uneven "inset" style), which was the real cause of the
-       lopsided border you saw before this fix. */
+       lopsided border before this fix. */
     border: 10px solid black;
 }
 
@@ -72,12 +73,14 @@ button {
     font-size: 30px;
 }
 
-.backspaceBtn {
-    background-color: gainsboro;
+.clearBtn {
+    flex: 1.5; /* larger than a normal button (flex: 1)... */
+    background-color: rgb(243, 124, 80);
 }
 
-.clearBtn {
-    background-color: rgb(243, 124, 80);
+.backspaceBtn {
+    flex: 1.5; /* ...same as AC, so they're equal to each other */
+    background-color: gainsboro;
 }
 
 .opBtn {
