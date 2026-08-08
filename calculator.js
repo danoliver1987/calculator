@@ -157,10 +157,30 @@ sumButton.addEventListener("click", function(event) {
     if (result === "What a plonker!") {
         return display.value = "What a plonker!"
     } 
-        // Round to 4 decimal places, then parseFloat strips any unnecessary
-        // trailing zeros (e.g. "8.0000" -> 8, but "3.1416" stays as is).
-        let n = result.toFixed(4);
-        n = parseFloat(n);
+        // Round to 8 significant digits total (not just decimal places) so
+        // very large or very small results don't overflow the display.
+        // toPrecision caps the total digit count; very large results may
+        // flip into scientific notation (e.g. "1.2345679e+8") when they
+        // can't fit otherwise.
+        let n = result.toPrecision(8);
+
+        // toPrecision(8) counts significant DIGITS, not characters - so a
+        // result like "3.1415927" has 8 digits but 9 characters once the
+        // decimal point is counted. If a "." snuck in (and we're not
+        // already in scientific notation), drop to 7 significant digits
+        // instead, so the "." fits within the same 8-character budget.
+        if (n.includes(".") && !n.includes("e")) {
+            n = result.toPrecision(7);
+        }
+
+        // parseFloat strips unnecessary trailing zeros (e.g. "8.0000000" -> 8),
+        // but it also EXPANDS scientific notation back into a full-length
+        // number (undoing the whole point of toPrecision above). So only
+        // run it when n isn't in scientific notation - otherwise, leave the
+        // short "e+" form exactly as toPrecision gave it to us.
+        if (!n.includes("e")) {
+            n = parseFloat(n);
+        }
         display.value = n;
         hasBeenCalculated = true; // remember that a result is now on screen
 });
