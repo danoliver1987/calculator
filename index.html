@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
     <script src="calculator.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <div class="main-container">
+
+        <div class="line1">
     <input
         type="text"
         id="calculator"
@@ -15,6 +20,13 @@
         maxlength="20"
         size="20"
         readonly />
+        </div>
+
+            <div class="line2">
+            <button class="clearBtn">AC</button>
+            <button class="backspaceBtn">⌫</button>
+            <button class="opBtn">/</button>
+            </div>
 
     
         <button class="num-btn">1</button>
@@ -31,15 +43,12 @@
         <button class="opBtn">+</button>
         <button class="opBtn">-</button>
         <button class="opBtn">*</button>
-        <button class="opBtn">/</button>
         
         <button class="sumup">=</button>
-        
-        <button class="clearBtn">AC</button>
 
         <button class="decimalBtn">.</button>
 
-        <button class="backspaceBtn">⌫</button>
+        </div>
 
 </body>
 </html>
